@@ -22,7 +22,7 @@
 
 ### Backend Architecture
 - **Java 17 + Spring Boot 3.3** for robust, enterprise-grade REST APIs.
-- **Spring Data MongoDB** schemas handling persistent, scalable data storage and lookups.
+- **Spring Data JPA (PostgreSQL)** schemas mapping relational, scalable tables and cross-table entity lookups.
 - **Spring Security 6 (JWT & bcrypt)** for secure, stateless user authentication and authorization.
 
 ---
@@ -41,7 +41,7 @@
 
 ### Prerequisites
 - Node.js (v18+)
-- Local MongoDB installation or a MongoDB Atlas URI string
+- Local PostgreSQL database running on port 5432
 
 ### 1. Clone the Repository
 ```bash
@@ -54,7 +54,7 @@ Navigate to the `spring-backend` directory and ensure you have Java 17+ installe
 ```bash
 cd spring-backend
 ```
-The application connects to MongoDB locally on `27017` by default. You can change this in `spring-backend/src/main/resources/application.properties` if needed.
+The application connects to PostgreSQL locally on `5432` by default. Note: You must run `CREATE DATABASE fleetflow;` manually. You can change credentials in `spring-backend/src/main/resources/application.properties` if needed.
 
 Start the Spring Boot server (using Maven Wrapper or local Maven):
 ```bash
@@ -84,4 +84,4 @@ When creating a new account on the `/register` screen, you will be prompted to s
 If you wish to test the limits of the software, we highly recommend opening two separate Incognito windows and logging into each role side-by-side!
 
 ---
-*Built independently with React, Java, Spring Boot, and MongoDB.*
+*Built independently with React, Java, Spring Boot, and PostgreSQL.*
