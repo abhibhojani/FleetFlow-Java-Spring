@@ -41,7 +41,7 @@ public class VehicleController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateVehicle(@PathVariable String id,
                                            @RequestBody Vehicle updatedVehicle) {
-        return vehicleRepository.findById(id).map(existing -> {
+        return vehicleRepository.findById(id).<ResponseEntity<?>>map(existing -> {
             if (updatedVehicle.getName() != null)           existing.setName(updatedVehicle.getName());
             if (updatedVehicle.getModel() != null)          existing.setModel(updatedVehicle.getModel());
             if (updatedVehicle.getLicensePlate() != null)   existing.setLicensePlate(updatedVehicle.getLicensePlate());
@@ -51,15 +51,15 @@ public class VehicleController {
             if (updatedVehicle.getType() != null)           existing.setType(updatedVehicle.getType());
             if (updatedVehicle.getRegion() != null)         existing.setRegion(updatedVehicle.getRegion());
             return ResponseEntity.ok(vehicleRepository.save(existing));
-        }).orElse(ResponseEntity.status(404).body(Map.of("message", "Vehicle not found")));
+        }).orElseGet(() -> ResponseEntity.status(404).body(Map.of("message", "Vehicle not found")));
     }
 
     // DELETE /api/vehicles/:id
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVehicle(@PathVariable String id) {
-        return vehicleRepository.findById(id).map(vehicle -> {
+        return vehicleRepository.findById(id).<ResponseEntity<?>>map(vehicle -> {
             vehicleRepository.delete(vehicle);
             return ResponseEntity.ok((Object) Map.of("message", "Vehicle removed successfully"));
-        }).orElse(ResponseEntity.status(404).body(Map.of("message", "Vehicle not found")));
+        }).orElseGet(() -> ResponseEntity.status(404).body(Map.of("message", "Vehicle not found")));
     }
 }

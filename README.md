@@ -1,7 +1,6 @@
 # FleetFlow 🚚💨
 
 **Live Demo:** (https://fleet-flow-chi.vercel.app/)
-**Backend API:** https://fleetflow-backend-nf95.onrender.com
 
 **FleetFlow** is a modern, full-stack enterprise logistics application specifically engineered to monitor, dispatch, and manage vehicular fleets. Built rapidly and reliably for hackathon constraints, FleetFlow features a dynamic **Role-Based Access Control (RBAC)** architecture that naturally splits the software into two distinct views:
 
@@ -22,9 +21,9 @@
 - **Zustand** (custom `store.tsx`) for robust global state management.
 
 ### Backend Architecture
-- **Node.js + Express** providing strict, structured RESTful API endpoints.
-- **MongoDB + Mongoose** schemas handling persistent, scalable data storage and lookups.
-- **JWT (JSON Web Tokens) & bcrypt** for secure, hashed user authentication and authorization.
+- **Java 17 + Spring Boot 3.3** for robust, enterprise-grade REST APIs.
+- **Spring Data MongoDB** schemas handling persistent, scalable data storage and lookups.
+- **Spring Security 6 (JWT & bcrypt)** for secure, stateless user authentication and authorization.
 
 ---
 
@@ -51,24 +50,17 @@ cd FleetFlow
 ```
 
 ### 2. Configure the Backend
-Navigate to the `server` directory and install the Node server dependencies.
+Navigate to the `spring-backend` directory and ensure you have Java 17+ installed.
 ```bash
-cd server
-npm install
+cd spring-backend
 ```
-Create a `.env` file in the `server` root directory and feed it your specific database secrets:
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/fleetflow
-JWT_SECRET=super-secret-fleet-key-change-me
-```
-*Note: The app is configured to seek MongoDB locally on `27017` by default if a `.env` is not heavily configured.*
+The application connects to MongoDB locally on `27017` by default. You can change this in `spring-backend/src/main/resources/application.properties` if needed.
 
-Start the backend server:
+Start the Spring Boot server (using Maven Wrapper or local Maven):
 ```bash
-node server.js
+mvn spring-boot:run
 ```
-*If successful, you will see `✅ MongoDB connected successfully`.*
+*If successful, the backend will start on `http://localhost:5000`.*
 
 ### 3. Configure the Frontend
 Open a new terminal session, navigate back to the **main project root**, and install the React dependencies.
@@ -92,4 +84,4 @@ When creating a new account on the `/register` screen, you will be prompted to s
 If you wish to test the limits of the software, we highly recommend opening two separate Incognito windows and logging into each role side-by-side!
 
 ---
-*Built independently with React, Node.js, and MongoDB.*
+*Built independently with React, Java, Spring Boot, and MongoDB.*

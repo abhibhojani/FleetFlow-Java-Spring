@@ -38,7 +38,7 @@ public class DriverController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateDriver(@PathVariable String id,
                                           @RequestBody Driver updatedDriver) {
-        return driverRepository.findById(id).map(existing -> {
+        return driverRepository.findById(id).<ResponseEntity<?>>map(existing -> {
             if (updatedDriver.getName() != null)         existing.setName(updatedDriver.getName());
             if (updatedDriver.getLicenseExpiry() != null) existing.setLicenseExpiry(updatedDriver.getLicenseExpiry());
             if (updatedDriver.getSafetyScore() != null)  existing.setSafetyScore(updatedDriver.getSafetyScore());
@@ -49,15 +49,15 @@ public class DriverController {
             if (updatedDriver.getAssignedVehicleId() != null)
                 existing.setAssignedVehicleId(updatedDriver.getAssignedVehicleId());
             return ResponseEntity.ok(driverRepository.save(existing));
-        }).orElse(ResponseEntity.status(404).body(Map.of("message", "Driver not found")));
+        }).orElseGet(() -> ResponseEntity.status(404).body(Map.of("message", "Driver not found")));
     }
 
     // DELETE /api/drivers/:id
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDriver(@PathVariable String id) {
-        return driverRepository.findById(id).map(driver -> {
+        return driverRepository.findById(id).<ResponseEntity<?>>map(driver -> {
             driverRepository.delete(driver);
             return ResponseEntity.ok((Object) Map.of("message", "Driver profile removed"));
-        }).orElse(ResponseEntity.status(404).body(Map.of("message", "Driver not found")));
+        }).orElseGet(() -> ResponseEntity.status(404).body(Map.of("message", "Driver not found")));
     }
 }
