@@ -1,0 +1,27 @@
+# Node.js / Frontend
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Spring Boot / Maven
+spring-backend/target/
+spring-backend/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/settings.json
+*.iml
+.project
+.classpath
+.settings/
